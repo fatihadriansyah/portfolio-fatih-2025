@@ -53,7 +53,7 @@ export default function AboutMe() {
                     animate={{
                         WebkitMaskPosition: `${mousePos.x - 200}px ${mousePos.y - 200}px`,
                         WebkitMaskSize: "400px 400px",
-                    }}
+                    }as any}
                     transition={{ type: "tween", ease: "backOut", duration: 0.1 }}
                     style={{
                         maskImage: "radial-gradient(circle, black 30%, transparent 70%)",
