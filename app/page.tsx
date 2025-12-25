@@ -1,65 +1,104 @@
-import Image from "next/image";
+'use client';
+
+import Link from 'next/link';
+import { ReactLenis } from '@studio-freight/react-lenis';
+
+// IMPORT SEMUA KOMPONEN
+import FluidBlob from "@/components/FluidBlob";
+import AboutMe from "@/components/AboutMe";           
+import SkillsGrid from "@/components/SkillsGrid";     
+import Experience from "@/components/Experience";     
+import SoftwareSkills from "@/components/SoftwareSkills"; 
+import CreativeShowcase from "@/components/CreativeShowcase"; 
+import ContactFooter from "@/components/ContactFooter"; 
+import CustomCursor from "@/components/CustomCursor";
+import NoiseOverlay from "@/components/NoiseOverlay";
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <ReactLenis root>
+      <main className="flex min-h-screen flex-col bg-black text-white cursor-none selection:bg-purple-500 selection:text-white">
+        
+        {/* === GLOBAL EFFECTS === */}
+        <CustomCursor />
+        <NoiseOverlay />
+
+        {/* === 1. HERO SECTION === */}
+        <div className="relative h-screen w-full flex flex-col items-center justify-center overflow-hidden">
+          
+          {/* NAVBAR (UPDATED LINKS) */}
+          <nav className="absolute top-0 w-full p-8 flex justify-between items-center z-20">
+            <h1 className="text-2xl font-bold tracking-tighter mix-blend-difference">FATIH.</h1>
+            <ul className="flex gap-8 text-sm text-gray-400 font-medium items-center mix-blend-difference">
+              
+              {/* LINK KE ABOUT (Scroll ke ID #about) */}
+              <li className="hover:text-white transition-colors cursor-pointer">
+                <Link href="#about">About</Link>
+              </li>
+              
+              <li>
+                <Link href="/gallery" className="hover:text-white transition-colors cursor-pointer">
+                  Gallery
+                </Link>
+              </li>
+
+              <li>
+                <Link href="/novel" className="hover:text-white transition-colors cursor-pointer">
+                  Anthology
+                </Link>
+              </li>
+              
+              {/* LINK KE CONTACT (Scroll ke ID #contact) */}
+              <li className="hover:text-white transition-colors cursor-pointer">
+                <Link href="#contact">Contact</Link>
+              </li>
+            </ul>
+          </nav>
+
+          {/* HERO TEXT */}
+          <div className="relative z-10 text-center mix-blend-difference px-4 flex flex-col items-center pointer-events-none">
+            <p className="text-xl mb-6 font-light tracking-[0.3em] text-gray-300 uppercase animate-pulse">
+              Visual & Code
+            </p>
+            <h1 className="text-6xl md:text-9xl font-bold leading-none tracking-tight text-white mb-2">
+              Fatih<br />Adriansyah
+            </h1>
+          </div>
+
+          {/* 3D BLOB (STATIC) */}
+          <div className="absolute inset-0 z-0 opacity-80 pointer-events-none">
+             <FluidBlob />
+          </div>
+
+          <div className="absolute bottom-10 animate-bounce text-xs tracking-widest text-gray-500 z-20 mix-blend-difference">
+            SCROLL TO EXPLORE
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+        {/* === 2. ABOUT ME (DIBUNGKUS ID="about") === */}
+        <div id="about" className="scroll-mt-20"> 
+          {/* scroll-mt-20 memberi jarak sedikit di atas agar tidak terlalu mepet saat discroll */}
+          <AboutMe />
         </div>
+
+        {/* === 3. EXPERTISE (SKILLS) === */}
+        <SkillsGrid />
+
+        {/* === 4. EXPERIENCE (TIMELINE) === */}
+        <Experience />
+
+        {/* === 5. TECH STACK (SOFTWARE) === */}
+        <SoftwareSkills />
+
+        {/* === 6. SHOWCASE (GALLERY/VIDEO/DESIGN) === */}
+        <CreativeShowcase />
+
+        {/* === 7. FOOTER (DIBUNGKUS ID="contact") === */}
+        <div id="contact">
+          <ContactFooter /> 
+        </div>
+
       </main>
-    </div>
+    </ReactLenis>
   );
 }
