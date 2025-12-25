@@ -5,12 +5,12 @@ import { useState } from 'react';
 
 // DATA SOFTWARE (Clean: Tanpa Ikon)
 const softwares = [
-  { name: "Adobe Lightroom", percent: 98 },
-  { name: "Adobe Photoshop", percent: 90 },
-  { name: "Figma", percent: 92 },
-  { name: "CapCut", percent: 95 },
+  { name: "Adobe Lightroom", percent: 90 },
+  { name: "Adobe Photoshop", percent: 70 },
+  { name: "Figma", percent: 90 },
+  { name: "CapCut", percent: 89 },
   { name: "Affinity Designer", percent: 85 },
-  { name: "Canva", percent: 96 },
+  { name: "Canva", percent: 92 },
 ];
 
 export default function SoftwareSkills() {
