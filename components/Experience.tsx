@@ -13,8 +13,8 @@ const organizations = [
     desc: "Leading department projects, developing weekly educational workshops on photography techniques, and managing member development."
   },
   {
-    role: "Staff of Media & Comm.",
-    org: "HMTI (Informatics Student Union)",
+    role: "Staff of Media & Information",
+    org: "HIMATIF JGU",
     period: "Oct 2024 - Present",
     desc: "Managing external image & documenting organizational events for publication material."
   },
