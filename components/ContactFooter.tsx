@@ -1,8 +1,8 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { motion, useSpring, useTransform, useMotionValue } from 'framer-motion';
-import { ArrowUpRight, Copy, Check } from 'lucide-react';
+import { motion, useSpring, useMotionValue } from 'framer-motion';
+import { Copy, Check } from 'lucide-react';
 
 export default function ContactFooter() {
   const [time, setTime] = useState('');
@@ -25,7 +25,8 @@ export default function ContactFooter() {
 
   // Logic untuk Copy Email
   const handleCopy = () => {
-    navigator.clipboard.writeText('fatih@example.com'); // Ganti email nanti
+    // Pastikan email ini sesuai keinginan Fatih-sama
+    navigator.clipboard.writeText('muhammadfatih1629@gmail.com'); 
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -69,8 +70,8 @@ export default function ContactFooter() {
           </div>
           
           <div className="flex gap-6">
-            <a href="https://www.linkedin.com/in/muhammad-fatih-adriansyah-720095342/" className="hover:text-white transition-colors">LinkedIn</a>
-            <a href="https://www.instagram.com/fatih.adriansyah/" className="hover:text-white transition-colors">Instagram</a>
+            <a href="https://www.linkedin.com/in/muhammad-fatih-adriansyah-720095342/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">LinkedIn</a>
+            <a href="https://www.instagram.com/fatih.adriansyah/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Instagram</a>
           </div>
         </div>
 
@@ -79,7 +80,7 @@ export default function ContactFooter() {
   );
 }
 
-// Komponen Kecil: Tombol Magnetis
+// Komponen Kecil: Tombol Magnetis (FIXED RESPONSIVE)
 function MagneticButton({ onClick, copied }: { onClick: () => void, copied: boolean }) {
   const ref = useRef<HTMLButtonElement>(null);
   const x = useMotionValue(0);
@@ -91,12 +92,13 @@ function MagneticButton({ onClick, copied }: { onClick: () => void, copied: bool
 
   const handleMouseMove = (e: React.MouseEvent) => {
     const { clientX, clientY } = e;
-    const { left, top, width, height } = ref.current!.getBoundingClientRect();
-    // Hitung jarak mouse dari tengah tombol
+    // Pengecekan null safety
+    if (!ref.current) return;
+    
+    const { left, top, width, height } = ref.current.getBoundingClientRect();
     const center = { x: left + width / 2, y: top + height / 2 };
     const distance = { x: clientX - center.x, y: clientY - center.y };
     
-    // Gerakkan tombol sedikit mengikuti mouse
     x.set(distance.x * 0.35);
     y.set(distance.y * 0.35);
   };
@@ -113,13 +115,17 @@ function MagneticButton({ onClick, copied }: { onClick: () => void, copied: bool
       onMouseLeave={handleMouseLeave}
       onClick={onClick}
       style={{ x: mouseX, y: mouseY }}
-      className="relative group flex items-center gap-4 bg-white text-black px-10 py-6 rounded-full text-xl font-bold hover:scale-105 transition-transform duration-300"
+      // PERBAIKAN DI SINI:
+      // text-sm md:text-xl -> Font kecil di HP, Besar di PC
+      // px-6 py-4 md:px-10 md:py-6 -> Padding kecil di HP, Besar di PC
+      // max-w-[90vw] -> Menjamin tombol tidak akan pernah lebih lebar dari layar HP (aman 90%)
+      className="relative group flex items-center justify-center gap-2 md:gap-4 bg-white text-black px-6 py-4 md:px-10 md:py-6 rounded-full text-xs sm:text-sm md:text-xl font-bold hover:scale-105 transition-transform duration-300 max-w-[90vw]"
     >
-      <span className="relative z-10 flex items-center gap-3">
+      <span className="relative z-10 flex items-center gap-2 md:gap-3 overflow-hidden text-ellipsis whitespace-nowrap">
         {copied ? (
-          <>Email Copied! <Check size={20} /></>
+          <>Email Copied! <Check size={18} className="md:w-5 md:h-5" /></>
         ) : (
-          <>muhammadfatih1629@gmail.com <Copy size={20} /></>
+          <>muhammadfatih1629@gmail.com <Copy size={18} className="md:w-5 md:h-5" /></>
         )}
       </span>
       {/* Circle Fill Effect on Hover */}

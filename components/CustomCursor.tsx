@@ -8,15 +8,20 @@ export default function CustomCursor() {
   const [isHovering, setIsHovering] = useState(false);
 
   useEffect(() => {
-    // 1. Lacak posisi mouse
     const updateMousePosition = (e: MouseEvent) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
     };
 
-    // 2. Deteksi kalau mouse lagi di atas tombol/link
+    // Deteksi hover pada elemen clickable
     const handleMouseOver = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
-      if (target.tagName === 'A' || target.tagName === 'BUTTON' || target.closest('a') || target.closest('button')) {
+      if (
+        target.tagName === 'A' || 
+        target.tagName === 'BUTTON' || 
+        target.closest('a') || 
+        target.closest('button') ||
+        window.getComputedStyle(target).cursor === 'pointer'
+      ) {
         setIsHovering(true);
       } else {
         setIsHovering(false);
@@ -34,27 +39,15 @@ export default function CustomCursor() {
 
   return (
     <>
-      {/* Kursor Utama (Dot Kecil) */}
+      {/* PERBAIKAN: Tambahkan 'hidden md:block' agar hilang di HP */}
       <motion.div
-        className="fixed top-0 left-0 w-4 h-4 bg-white rounded-full pointer-events-none z-[9999] mix-blend-difference"
+        className="hidden md:block fixed top-0 left-0 w-4 h-4 bg-white rounded-full pointer-events-none z-[9999] mix-blend-difference"
         animate={{
           x: mousePosition.x - 8,
           y: mousePosition.y - 8,
-          scale: isHovering ? 0 : 1 // Hilang saat hover, diganti lingkaran besar
+          scale: isHovering ? 2.5 : 1,
         }}
-        transition={{ type: "tween", ease: "backOut", duration: 0 }}
-      />
-
-      {/* Kursor Pengikut (Lingkaran Besar) */}
-      <motion.div
-        className="fixed top-0 left-0 w-8 h-8 border border-white rounded-full pointer-events-none z-[9998] mix-blend-difference"
-        animate={{
-          x: mousePosition.x - 16,
-          y: mousePosition.y - 16,
-          scale: isHovering ? 2.5 : 1, // Membesar saat hover link
-          backgroundColor: isHovering ? "white" : "transparent"
-        }}
-        transition={{ type: "spring", stiffness: 150, damping: 15, mass: 0.1 }}
+        transition={{ type: "tween", ease: "backOut", duration: 0.1 }}
       />
     </>
   );
